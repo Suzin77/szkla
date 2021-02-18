@@ -45,7 +45,7 @@ class Contact
     private $process_data;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Department::class, mappedBy="contact")
+     * @ORM\ManyToMany(targetEntity=Department::class, inversedBy="contact")
      */
     private $departments;
 
