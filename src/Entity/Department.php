@@ -25,7 +25,7 @@ class Department
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Contact::class, inversedBy="departments")
+     * @ORM\ManyToMany(targetEntity=Contact::class, mappedBy="departments")
      */
     private $contact;
 
