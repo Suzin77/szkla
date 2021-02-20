@@ -27,8 +27,8 @@
                 <td>{{ contact.dayOfBirth ? contact.dayOfBirth|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ contact.processData }}</td>
                 <td>
-                    <a href="{{ path('contact_show', {'id': contact.id}) }}">show</a>
-                    <a href="{{ path('contact_edit', {'id': contact.id}) }}">edit</a>
+                    <a class="btn btn-sm btn-primary mr-2" href="{{ path('contact_show', {'id': contact.id}) }}">show</a>
+                    <a class="btn btn-sm btn-primary mr-2" href="{{ path('contact_edit', {'id': contact.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -39,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('contact_new') }}">Create new</a>
+    <a class="btn btn-sm btn-primary mr-2" href="{{ path('contact_new') }}">Create new</a>
 {% endblock %}
