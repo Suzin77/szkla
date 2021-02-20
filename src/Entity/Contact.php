@@ -6,6 +6,7 @@ use App\Repository\ContactRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContactRepository::class)
@@ -21,16 +22,25 @@ class Contact
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      max = 20,
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      max = 20,
+     * )
      */
     private $surname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email."
+     * )
      */
     private $email;
 
