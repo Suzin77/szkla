@@ -17,6 +17,8 @@ class ContactController extends AbstractController
 {
     /**
      * @Route("/", name="contact_index", methods={"GET"})
+     * @param ContactRepository $contactRepository
+     * @return Response
      */
     public function index(ContactRepository $contactRepository): Response
     {
@@ -27,6 +29,8 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/new", name="contact_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -50,6 +54,8 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/{id}", name="contact_show", methods={"GET"})
+     * @param Contact $contact
+     * @return Response
      */
     public function show(Contact $contact): Response
     {
@@ -60,6 +66,9 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="contact_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Contact $contact
+     * @return Response
      */
     public function edit(Request $request, Contact $contact): Response
     {
@@ -80,6 +89,9 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/{id}", name="contact_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Contact $contact
+     * @return Response
      */
     public function delete(Request $request, Contact $contact): Response
     {
