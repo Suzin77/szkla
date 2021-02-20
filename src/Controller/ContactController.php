@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
+use App\Service\ContactMailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -15,6 +18,16 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ContactController extends AbstractController
 {
+
+    /**
+     * @var ContactMailService
+     */
+    private $contactMailService;
+
+    public function __construct(ContactMailService $contactMailService)
+    {
+        $this->contactMailService = $contactMailService;
+    }
     /**
      * @Route("/", name="contact_index", methods={"GET"})
      * @param ContactRepository $contactRepository
@@ -30,9 +43,11 @@ class ContactController extends AbstractController
     /**
      * @Route("/new", name="contact_new", methods={"GET","POST"})
      * @param Request $request
+     * @param MailerInterface $mailer
      * @return Response
+     * @throws TransportExceptionInterface
      */
-    public function new(Request $request): Response
+    public function new(Request $request, MailerInterface $mailer): Response
     {
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
@@ -43,8 +58,12 @@ class ContactController extends AbstractController
             $entityManager->persist($contact);
             $entityManager->flush();
 
+            $this->contactMailService->mailAfterNewContact($contact, $mailer);
+
             return $this->redirectToRoute('contact_index');
         }
+
+
 
         return $this->render('contact/new.html.twig', [
             'contact' => $contact,
