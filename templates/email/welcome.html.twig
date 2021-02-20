@@ -4,3 +4,7 @@
 <p>Email: {{ contact.email }}</p>
 <p>Day of birth: {{ contact.dayOfBirth|date('Y-m-d') }}</p>
 <p>Process data : {{ contact.processData ? 'Yes' : 'No' }}</p>
+<p>Departments: </p>
+{% for department in contact.departments %}
+    <li>{{ department.name }}</li>
+{% endfor %}
